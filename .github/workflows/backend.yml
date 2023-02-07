@@ -2,10 +2,9 @@ name: backend-build
 
 on:
   push:
-    branches: [main]
-    paths:
-      - "./**"
-      - "./**"
+    branches:
+      - 'main'
+      - 'releases/**'
       
 jobs:
   test:
