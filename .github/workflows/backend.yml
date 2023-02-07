@@ -21,6 +21,6 @@ jobs:
       - name: deploy coverage report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_dir: coverage/lcov-report
-          sub_directory: pr-${{ github.event.pull_request.number }} 
+          sub_directory: pr-${{ github.event.pull_request.number }}
