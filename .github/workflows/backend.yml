@@ -23,4 +23,4 @@ jobs:
         with:
           github_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_dir: coverage/lcov-report
-          sub_directory: pr-${{ github.event.pull_request.number }}
+          sub_directory: commit-${{ github.sha }}
