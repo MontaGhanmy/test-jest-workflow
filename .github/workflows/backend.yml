@@ -1,0 +1,27 @@
+name: backend-build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "./**"
+      - "./**"
+      
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: unit-test
+        run: cd twake && docker-compose -f docker-compose.tests.yml run -e NODE_OPTIONS=--unhandled-rejections=warn node npm run test:unit
+      - name: upload test coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report-${{ github.event.pull_request.number }}
+          path: coverage/lcov-report
+      - name: deploy coverage report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: coverage/lcov-report
+          sub_directory: pr-${{ github.event.pull_request.number }} 
