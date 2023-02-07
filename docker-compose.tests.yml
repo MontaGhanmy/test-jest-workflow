@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: test
+    volumes:
+      - ./coverage/:/usr/src/app/coverage/
+    environment:
+      - NODE_ENV=test
