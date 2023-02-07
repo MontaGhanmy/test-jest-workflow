@@ -17,10 +17,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report-${{ github.event.pull_request.number }}
-          path: coverage/lcov-report
+          path: app/coverage/lcov-report
       - name: deploy coverage report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.DEPLOY_TOKEN }}
-          publish_dir: coverage/lcov-report
+          publish_dir: app/coverage/lcov-report
           destination_dir: commit-${{ github.sha }}
