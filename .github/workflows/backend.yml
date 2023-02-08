@@ -18,3 +18,12 @@ jobs:
         with:
           name: coverage-report-${{ github.event.pull_request.number }}
           path: app/coverage/lcov-report
+      
+      - name: Add Table to PR Comment
+        uses: actions/create-or-update-comment@v1
+        with:
+          body: |
+            | Test Case | Result |
+            |-----------|--------|
+            | Test 1    | Passed |
+            | Test 2    | Failed |
