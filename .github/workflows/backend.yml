@@ -2,9 +2,7 @@ name: backend-build
 
 on:
   pull_request_target:
-    branches: [main]
-    paths:
-      - "app/**"
+    types: [assigned, opened, synchronize, reopened]
       
 jobs:
   test:
