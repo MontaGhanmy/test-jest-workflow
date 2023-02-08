@@ -1,7 +1,9 @@
 name: deploy-Coverage-report
 on:
   workflow_run:
-    types: [completed]
+    workflows: [test, backend-build]
+    types:
+      - requested
 jobs:
   test:
     runs-on: ubuntu-20.04
