@@ -1,20 +1,27 @@
-name: deploy-Coverage-report
+name: deploy-coverage-results
+
 on:
-  workflow_run:
-    workflows: [test, backend-build]
-    types:
-      - requested
+  pull_request_target:
+    types: [assigned, opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - "app/**"
+
 jobs:
-  test:
-    runs-on: ubuntu-20.04
+  coverage:
+    runs-on: ubuntu-latest
+    needs: [test]
+
     steps:
-      - name: Comment
-        uses: actions/github-script@v6
+      - name: Download artifact
+        uses: actions/download-artifact@v2
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Coverage results!'
-            })
+          name: coverage-report-${{ github.event.pull_request.number }}
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          coverage_path: "app/coverage/clover.xml"
+          threshold_alert: 10
+          threshold_warning: 50
+          threshold_metric: "lines"
