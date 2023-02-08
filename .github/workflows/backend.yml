@@ -17,16 +17,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report-${{ github.event.pull_request.number }}
-          path: app/coverage/lcov-report
+          path: app/coverage/
       
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v2
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@v1
         with:
-          issue-number: 1
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          coverage_path: "app/coverage/clover.xml"
+          threshold_alert: 10
+          threshold_warning: 50
+          threshold_metric: "lines"
