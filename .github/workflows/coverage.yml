@@ -1,0 +1,18 @@
+name: deploy-Coverage-report
+on:
+  workflow_run:
+    types: [completed]
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Coverage results!'
+            })
