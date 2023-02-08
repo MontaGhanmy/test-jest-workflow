@@ -1,13 +1,15 @@
 name: backend-build
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [assigned, opened, synchronize, reopened]
     branches: [main]
     paths:
       - "app/**"
       
 jobs:
   test:
+    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -17,4 +19,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report-${{ github.event.pull_request.number }}
-          path: app/coverage/lcov-report
+          path: app/coverage/
+      
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          coverage_path: "app/coverage/clover.xml"
+          threshold_alert: 10
+          threshold_warning: 50
+          threshold_metric: "lines"
