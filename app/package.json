@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:unit": "jest --coverage --passWithNoTests"
+    "test:unit": "npx jest --coverage --passWithNoTests"
   },
   "author": "",
   "license": "ISC",
