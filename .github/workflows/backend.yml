@@ -22,11 +22,9 @@ jobs:
         with:
           name: coverage-report-${{ github.event.pull_request.number }}
           path: app/coverage/
-      - name: Monitor coverage
-        uses: slavcodev/coverage-monitor-action@v1
+      - uses: mshick/add-pr-comment@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          coverage_path: "app/coverage/clover.xml"
-          threshold_alert: 10
-          threshold_warning: 50
-          threshold_metric: "lines"
+          message: |
+            **Hello**
+            🌏
+            !
