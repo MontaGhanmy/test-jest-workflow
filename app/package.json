@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:unit": "npx jest --coverage --passWithNoTests"
+    "test:unit": "npx jest --coverage --passWithNoTests > coverage/coverage-report.txt"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "jest": "^29.4.1"
-  }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["text"],
+    "verbose": true,
+    "testEnvironment": "node"
+ }
 }
