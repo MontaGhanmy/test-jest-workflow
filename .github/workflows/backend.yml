@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha }}
       - name: unit-test
         run: cd app && docker-compose -f docker-compose.tests.yml run -e NODE_OPTIONS=--unhandled-rejections=warn node npm run test:unit
