@@ -13,7 +13,7 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json","text"],
+    "coverageReporters": ["json", "json-summary", "text"],
     "verbose": true,
     "testEnvironment": "node"
  }
